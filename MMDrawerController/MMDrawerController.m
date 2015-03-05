@@ -566,7 +566,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
     NSParameterAssert(drawerSide != MMDrawerSideNone);
     
     UIViewController *sideDrawerViewController = [self sideDrawerViewControllerForSide:drawerSide];
-    NSLog(@"%@", NSStringFromCGRect(sideDrawerViewController.mm_visibleDrawerFrame));
+
     CGFloat oldWidth = 0.f;
     NSInteger drawerSideOriginCorrection = 1;
     if (drawerSide == MMDrawerSideLeft) {
