@@ -45,7 +45,7 @@ CGFloat const MMDrawerPanVelocityXAnimationThreshold = 200.0f;
 
 /** The amount of overshoot that is panned linearly. The remaining percentage nonlinearly asymptotes to the max percentage. */
 CGFloat const MMDrawerOvershootLinearRangePercentage = 0.75f;
-
+- (void)setMaximumDrawerWidth:(CGFloat)width forSide:(MMDrawerSide)drawerSide animated:(BOOL)animated completion:(void(^)(BOOL finished))completion
 /** The percent of the possible overshoot width to use as the actual overshoot percentage. */
 CGFloat const MMDrawerOvershootPercentage = 0.1f;
 
@@ -567,6 +567,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
     NSParameterAssert(drawerSide != MMDrawerSideNone);
     
     UIViewController *sideDrawerViewController = [self sideDrawerViewControllerForSide:drawerSide];
+    NSLog(@"%@", NSStringFromCGRect(sideDrawerViewController.mm_visibleDrawerFrame));
     CGFloat oldWidth = 0.f;
     NSInteger drawerSideOriginCorrection = 1;
     if (drawerSide == MMDrawerSideLeft) {
@@ -591,12 +592,17 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
          options:UIViewAnimationOptionCurveEaseInOut
          animations:^{
              [self.centerContainerView setFrame:newCenterRect];
-             [sideDrawerViewController.view setFrame:sideDrawerViewController.mm_visibleDrawerFrame];
+             if (oldWidth < width){
+                 [sideDrawerViewController.view setFrame:sideDrawerViewController.mm_visibleDrawerFrame];
+             }
          }
          completion:^(BOOL finished) {
-             if(completion != nil){
-                 completion(finished);
-             }
+                if (oldWidth >= width){
+                    [sideDrawerViewController.view setFrame:sideDrawerViewController.mm_visibleDrawerFrame];
+                }
+                if(completion != nil){
+                    completion(finished);
+                }
          }];
     }
     else{
