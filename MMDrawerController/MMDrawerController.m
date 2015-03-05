@@ -45,7 +45,6 @@ CGFloat const MMDrawerPanVelocityXAnimationThreshold = 200.0f;
 
 /** The amount of overshoot that is panned linearly. The remaining percentage nonlinearly asymptotes to the max percentage. */
 CGFloat const MMDrawerOvershootLinearRangePercentage = 0.75f;
-- (void)setMaximumDrawerWidth:(CGFloat)width forSide:(MMDrawerSide)drawerSide animated:(BOOL)animated completion:(void(^)(BOOL finished))completion
 /** The percent of the possible overshoot width to use as the actual overshoot percentage. */
 CGFloat const MMDrawerOvershootPercentage = 0.1f;
 
